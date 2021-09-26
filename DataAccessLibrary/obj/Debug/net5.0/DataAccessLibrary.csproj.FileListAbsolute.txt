@@ -1,0 +1,12 @@
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/bin/Debug/net5.0/DataAccessLibrary.deps.json
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/bin/Debug/net5.0/DataAccessLibrary.dll
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/bin/Debug/net5.0/ref/DataAccessLibrary.dll
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/bin/Debug/net5.0/DataAccessLibrary.pdb
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/net5.0/DataAccessLibrary.csproj.AssemblyReference.cache
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/net5.0/DataAccessLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/net5.0/DataAccessLibrary.AssemblyInfoInputs.cache
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/net5.0/DataAccessLibrary.AssemblyInfo.cs
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/net5.0/DataAccessLibrary.csproj.CoreCompileInputs.cache
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/net5.0/DataAccessLibrary.dll
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/net5.0/ref/DataAccessLibrary.dll
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/net5.0/DataAccessLibrary.pdb

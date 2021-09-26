@@ -1,0 +1,13 @@
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/bin/Debug/netstandard2.1/DataAccessLibrary.deps.json
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/bin/Debug/netstandard2.1/DataAccessLibrary.dll
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/bin/Debug/netstandard2.1/DataAccessLibrary.pdb
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/netstandard2.1/DataAccessLibrary.csproj.AssemblyReference.cache
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/netstandard2.1/DataAccessLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/netstandard2.1/DataAccessLibrary.AssemblyInfoInputs.cache
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/netstandard2.1/DataAccessLibrary.AssemblyInfo.cs
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/netstandard2.1/DataAccessLibrary.csproj.CoreCompileInputs.cache
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/netstandard2.1/DataAccessLibrary.dll
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/netstandard2.1/DataAccessLibrary.pdb
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/bin/Debug/netstandard2.1/Microsoft.Extensions.Configuration.Abstractions.dll
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/bin/Debug/netstandard2.1/Microsoft.Extensions.Primitives.dll
+/home/danny/RiderProjects/WebApplication/DataAccessLibrary/obj/Debug/netstandard2.1/DataAccessLibrary.csproj.CopyComplete

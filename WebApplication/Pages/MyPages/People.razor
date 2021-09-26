@@ -1,0 +1,87 @@
+@page "/Data/People"
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using WebApplication.Models
+
+@inject IPeopleData _db
+
+<h1>People Page</h1>
+
+<h4>Insert new person</h4>
+<EditForm Model="@newPerson" OnValidSubmit="@InsertPerson">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <label for="firstName">First Name</label>
+    <InputText id="firstName" @bind-Value="newPerson.FirstName"/>
+    <label for="lastName">Last Name</label>
+    <InputText id="lastName" @bind-Value="newPerson.LastName"/>
+    <label for="emailAddress">Email</label>
+    <InputText id="emailAddress" @bind-Value="newPerson.EmailAddress"/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+<h4>Current People</h4>
+
+@if (people is null)
+{
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading People data...</span>
+    </div>
+}
+else
+{
+    <table class="table table-striped table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email address</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach(var person in people) {
+            <tr>
+                <td>@person.FirstName</td>
+                <td>@person.LastName</td>
+                <td>@person.EmailAddress</td>
+                <td><button class="btn btn-danger" @onclick="() => DeletePerson(person.Id)">Delete</button></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+@code {
+    private List<PersonModel> people;
+    
+    private DisplayPersonModel newPerson = new DisplayPersonModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        people = await _db.GetPeople();
+    }
+
+    private async Task InsertPerson()
+    {
+        // Convert the model (map it)
+        PersonModel p = new PersonModel
+        {
+            FirstName = newPerson.FirstName,
+            LastName = newPerson.LastName,
+            EmailAddress = newPerson.EmailAddress
+        };
+        await _db.InsertPerson(p);
+        // Add it to the list (so no reload required)
+        people.Add(p);
+        // Wipe out the previously entered data
+        newPerson = new DisplayPersonModel();
+    }
+    
+    // Delete the record
+    private async Task DeletePerson(int id)
+    {
+        await _db.DeletePerson(id);
+        people = await _db.GetPeople();
+    }
+
+}
