@@ -124,6 +124,8 @@ using WebApplication.Models;
     private List<PersonModel> people;
     
     private DisplayPersonModel newPerson = new DisplayPersonModel();
+    
+    private PersonModel editPerson;
 
     protected override async Task OnInitializedAsync()
     {
@@ -159,7 +161,7 @@ using WebApplication.Models;
         await _db.UpdatePerson(p);
         people = await _db.GetPeople();
     }
-
+    
 
 #line default
 #line hidden

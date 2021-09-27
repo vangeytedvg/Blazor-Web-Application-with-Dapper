@@ -1,8 +1,32 @@
 @page "/EditPeople/{id}"
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using WebApplication.Models
+
+@inject IPeopleData _db
+
 <h3>EditPerson</h3>
 <h1>Editing record @id</h1>
+
+@if (person == null)
+{
+    <p>Loading</p>
+}
+else
+{
+    <h1>@person.FirstName</h1>
+}
 
 @code {
     [Parameter]
     public string id { get; set; }
+
+    private PersonModel person = new PersonModel();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        person = await _db.GetSinglePerson(Int32.Parse(id));
+    }
 }
+

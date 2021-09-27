@@ -82,6 +82,34 @@ using WebApplication.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
+using DataAccessLibrary;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
+using DataAccessLibrary.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
+using WebApplication.Models;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/EditPeople/{id}")]
     public partial class EditPeople : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -91,14 +119,22 @@ using WebApplication.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 5 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
+#line 21 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
        
     [Parameter]
     public string id { get; set; }
 
+    private PersonModel person = new PersonModel();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        person = await _db.GetSinglePerson(Int32.Parse(id));
+    }
+
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPeopleData _db { get; set; }
     }
 }
 #pragma warning restore 1591

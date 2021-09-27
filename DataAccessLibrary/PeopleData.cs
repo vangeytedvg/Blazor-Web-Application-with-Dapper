@@ -50,7 +50,7 @@ namespace DataAccessLibrary
 
         public Task<PersonModel> GetSinglePerson(int id)
         {
-            string sql = "SELECT * FROM People WHERE id = @Id";
+            string sql = $"SELECT * FROM People WHERE id={id}";
             return _db.GetSinglePerson(sql);
         }
     }

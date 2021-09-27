@@ -67,21 +67,22 @@ namespace DataAccessLibrary
                 await connection.ExecuteAsync(sql, parameters);
             }
         }
-        
-        /**
-         * Get a single person from the database for edit
-         */
 
         public async Task<PersonModel> GetSinglePerson(string sql)
-        {
-            string connectionString = _config.GetConnectionString(ConnectionStringName);
+        {string connectionString = _config.GetConnectionString(ConnectionStringName);
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 var person = await connection.QuerySingleAsync(sql);
-                return person;
+                var pModel = new PersonModel();
+                pModel.Id = person.Id;
+                pModel.FirstName = person.FirstName;
+                pModel.LastName = person.LastName;
+                pModel.EmailAddress = person.EmailAddress;
+                return pModel;
 
             }
+            throw new NotImplementedException();
         }
 
         /**

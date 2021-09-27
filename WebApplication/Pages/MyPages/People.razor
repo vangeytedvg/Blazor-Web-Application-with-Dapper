@@ -60,6 +60,8 @@ else
     private List<PersonModel> people;
     
     private DisplayPersonModel newPerson = new DisplayPersonModel();
+    
+    private PersonModel editPerson;
 
     protected override async Task OnInitializedAsync()
     {
@@ -96,13 +98,4 @@ else
         people = await _db.GetPeople();
     }
     
-    private async Task EditSinglePerson(PersonModel p)
-    {
-        p.FirstName = "Coco Flanel";
-        await _db.GetSinglePerson(p.Id);
-        people = await _db.GetPeople();
-    }
-    
-    
-
 }
