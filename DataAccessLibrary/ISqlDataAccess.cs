@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataAccessLibrary.Models;
 
 namespace DataAccessLibrary
 {
-    public interface ISqlDataAccess
+    public interface IPersonDataService
     {
         string ConnectionStringName { get; set; }
 
@@ -17,6 +18,9 @@ namespace DataAccessLibrary
          */
         Task SaveData<T>(string sql, T parameters);
 
+        // Own Implementation
         Task DeletePerson(string sql);
+        Task UpdatePerson<T>(string sql, T parameters);
+        Task<PersonModel> GetSinglePerson(string sql);
     }
 }

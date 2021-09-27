@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using DataAccessLibrary.Models;
 
 //using Microsoft.Data.Sqlite;
 //using Microsoft.Data.Sqlite;
@@ -13,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace DataAccessLibrary
 {
-    public class SqlDataAccess : ISqlDataAccess
+    public class PersonDataService : IPersonDataService
     {
         
         // DI
@@ -21,14 +22,14 @@ namespace DataAccessLibrary
 
         public string ConnectionStringName { get; set; } = "sqlserver";
         
-        public SqlDataAccess(IConfiguration config)
+        public PersonDataService(IConfiguration config)
         {
             _config = config;
         }
 
         
         /**
-         * Get the data from the database 
+         * Get People as a list
          */
         public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
         {
@@ -40,7 +41,7 @@ namespace DataAccessLibrary
                 return data.ToList();
             }
         }
-
+        
         /**
          * Save the data
          */
@@ -54,7 +55,10 @@ namespace DataAccessLibrary
             }
         }
         
-        public async Task UpdateData<T>(string sql, T parameters)
+        /**
+         * Own Implementation
+         */
+        public async Task UpdatePerson<T>(string sql, T parameters)
         {
             string connectionString = _config.GetConnectionString(ConnectionStringName);
 
@@ -64,6 +68,22 @@ namespace DataAccessLibrary
             }
         }
         
+        /**
+         * Get a single person from the database for edit
+         */
+
+        public async Task<PersonModel> GetSinglePerson(string sql)
+        {
+            string connectionString = _config.GetConnectionString(ConnectionStringName);
+
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                var person = await connection.QuerySingleAsync(sql);
+                return person;
+
+            }
+        }
+
         /**
          * Own Implentation !
          */

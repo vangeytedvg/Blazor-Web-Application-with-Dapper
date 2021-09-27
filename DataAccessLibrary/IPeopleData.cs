@@ -10,5 +10,6 @@ namespace DataAccessLibrary
         Task InsertPerson(PersonModel person);
         Task DeletePerson(int id);
         Task UpdatePerson(PersonModel person);
+        Task<PersonModel> GetSinglePerson(int id);
     }
 }

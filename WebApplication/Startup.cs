@@ -57,7 +57,7 @@ namespace WebApplication
             services.AddSingleton<WeatherForecastService>();
             
             // Our Data library
-            services.AddTransient<ISqlDataAccess, SqlDataAccess>();
+            services.AddTransient<IPersonDataService, PersonDataService>();
             services.AddTransient<IPeopleData, PeopleData>();
         }
 

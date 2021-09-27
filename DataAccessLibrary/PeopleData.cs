@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DataAccessLibrary.Models;
 
@@ -7,9 +8,9 @@ namespace DataAccessLibrary
     public class PeopleData : IPeopleData
     {
 
-        private readonly ISqlDataAccess _db;
-        
-        public PeopleData(ISqlDataAccess db)
+        private readonly IPersonDataService _db;
+
+        public PeopleData(IPersonDataService db)
         {
             _db = db;
         }
@@ -24,13 +25,12 @@ namespace DataAccessLibrary
 
         public Task InsertPerson(PersonModel person)
         {
-            // Don't mind the error on emailaddress, it works
             string sql =
                 @"insert into People (firstname, lastname, emailaddress) VALUES (@FirstName, @LastName, @EmailAddress)";
             // We don't use await here, execute directly without cluttering the stack
             return _db.SaveData(sql, person);
         }
-        
+
         // Added by me
         public Task DeletePerson(int id)
         {
@@ -38,6 +38,20 @@ namespace DataAccessLibrary
             var sql = $"delete People where Id = {id}";
             // We don't use await here, execute directly without cluttering the stack
             return _db.DeletePerson(sql);
+        }
+
+        public Task UpdatePerson(PersonModel person)
+        {
+            string sql =
+                @"UPDATE People SET firstname = @FirstName, lastname=@LastName, emailaddress=@EmailAddress WHERE id=@Id";
+            // We don't use await here, execute directly without cluttering the stack
+            return _db.UpdatePerson(sql, person);
+        }
+
+        public Task<PersonModel> GetSinglePerson(int id)
+        {
+            string sql = "SELECT * FROM People WHERE id = @Id";
+            return _db.GetSinglePerson(sql);
         }
     }
 }

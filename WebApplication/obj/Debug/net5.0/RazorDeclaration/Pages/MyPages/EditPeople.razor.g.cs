@@ -82,36 +82,8 @@ using WebApplication.Shared;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 2 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/People.razor"
-using DataAccessLibrary;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/People.razor"
-using DataAccessLibrary.Models;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/People.razor"
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 5 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/People.razor"
-using WebApplication.Models;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Data/People")]
-    public partial class People : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/EditPeople/{id}")]
+    public partial class EditPeople : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -119,52 +91,14 @@ using WebApplication.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/People.razor"
+#line 5 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
        
-    private List<PersonModel> people;
-    
-    private DisplayPersonModel newPerson = new DisplayPersonModel();
-
-    protected override async Task OnInitializedAsync()
-    {
-        people = await _db.GetPeople();
-    }
-
-    private async Task InsertPerson()
-    {
-        // Convert the model (map it)
-        PersonModel p = new PersonModel
-        {
-            FirstName = newPerson.FirstName,
-            LastName = newPerson.LastName,
-            EmailAddress = newPerson.EmailAddress
-        };
-        await _db.InsertPerson(p);
-        // Add it to the list (so no reload required)
-        people.Add(p);
-        // Wipe out the previously entered data
-        newPerson = new DisplayPersonModel();
-    }
-    
-    // Delete the record
-    private async Task DeletePerson(int id)
-    {
-        await _db.DeletePerson(id);
-        people = await _db.GetPeople();
-    }
-
-    private async Task EditPerson(PersonModel p)
-    {
-        p.FirstName = "Coco Flanel";
-        await _db.UpdatePerson(p);
-        people = await _db.GetPeople();
-    }
-
+    [Parameter]
+    public string id { get; set; }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPeopleData _db { get; set; }
     }
 }
 #pragma warning restore 1591
