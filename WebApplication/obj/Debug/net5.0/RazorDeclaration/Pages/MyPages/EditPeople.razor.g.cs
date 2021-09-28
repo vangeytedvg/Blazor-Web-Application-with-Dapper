@@ -119,16 +119,18 @@ using WebApplication.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 21 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
+#line 20 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
        
     [Parameter]
     public string id { get; set; }
 
     private PersonModel person = new PersonModel();
+    private DisplayPersonModel myPerson = new DisplayPersonModel();
     
-    protected override async Task OnInitializedAsync()
+    // Call the database and get the selected person from it
+    protected override async Task<PersonModel> OnInitializedAsync()
     {
-        person = await _db.GetSinglePerson(Int32.Parse(id));
+        return await _db.GetSinglePerson(Int32.Parse(id));
     }
 
 #line default

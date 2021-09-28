@@ -7,27 +7,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using DataAccessLibrary.Models;
-
-//using Microsoft.Data.Sqlite;
-//using Microsoft.Data.Sqlite;
+using System.Configuration;
 using Microsoft.Extensions.Configuration;
 
 namespace DataAccessLibrary
 {
     public class PersonDataService : IPersonDataService
     {
-        
         // DI
         private readonly IConfiguration _config;
 
         public string ConnectionStringName { get; set; } = "sqlserver";
-        
+
         public PersonDataService(IConfiguration config)
         {
             _config = config;
         }
 
-        
+
         /**
          * Get People as a list
          */
@@ -35,13 +32,13 @@ namespace DataAccessLibrary
         {
             string connectionString = _config.GetConnectionString(ConnectionStringName);
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection sqlConnection = new SqlConnection(connectionString))
             {
-                var data = await connection.QueryAsync<T>(sql, parameters);
+                var data = await sqlConnection.QueryAsync<T>(sql, parameters);
                 return data.ToList();
             }
         }
-        
+
         /**
          * Save the data
          */
@@ -49,12 +46,12 @@ namespace DataAccessLibrary
         {
             string connectionString = _config.GetConnectionString(ConnectionStringName);
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection sqlConnection = new SqlConnection(connectionString))
             {
-                await connection.ExecuteAsync(sql, parameters);
+                await sqlConnection.ExecuteAsync(sql, parameters);
             }
         }
-        
+
         /**
          * Own Implementation
          */
@@ -62,28 +59,27 @@ namespace DataAccessLibrary
         {
             string connectionString = _config.GetConnectionString(ConnectionStringName);
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection sqlConnection = new SqlConnection(connectionString))
             {
-                await connection.ExecuteAsync(sql, parameters);
+                await sqlConnection.ExecuteAsync(sql, parameters);
             }
         }
 
-        public async Task<PersonModel> GetSinglePerson(string sql)
-        {string connectionString = _config.GetConnectionString(ConnectionStringName);
+        /**
+         * This took me a while to get this to work.  But ths returns
+         * a single person from the database.
+         */
+        public async Task<PersonModel> GetSinglePerson(int id)
+        {
+            string connectionString = _config.GetConnectionString(ConnectionStringName);
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection sqlConnection = new SqlConnection(connectionString))
             {
-                var person = await connection.QuerySingleAsync(sql);
-                var pModel = new PersonModel();
-                pModel.Id = person.Id;
-                pModel.FirstName = person.FirstName;
-                pModel.LastName = person.LastName;
-                pModel.EmailAddress = person.EmailAddress;
-                return pModel;
-
+                return await sqlConnection.QuerySingleAsync<PersonModel>("SELECT * FROM people WHERE Id=@id",
+                    new {Id = id});
             }
-            throw new NotImplementedException();
         }
+
 
         /**
          * Own Implentation !
@@ -92,9 +88,9 @@ namespace DataAccessLibrary
         {
             string connectionString = _config.GetConnectionString(ConnectionStringName);
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection sqlConnection = new SqlConnection(connectionString))
             {
-                await connection.ExecuteAsync(sql);
+                await sqlConnection.ExecuteAsync(sql);
             }
         }
     }

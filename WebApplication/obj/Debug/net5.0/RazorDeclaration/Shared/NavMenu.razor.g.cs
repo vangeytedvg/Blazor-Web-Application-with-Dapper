@@ -90,7 +90,7 @@ using WebApplication.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "/home/danny/RiderProjects/WebApplication/WebApplication/Shared/NavMenu.razor"
+#line 38 "/home/danny/RiderProjects/WebApplication/WebApplication/Shared/NavMenu.razor"
        
     private bool collapseNavMenu = true;
 

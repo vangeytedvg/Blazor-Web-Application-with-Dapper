@@ -3,7 +3,6 @@
 @using DataAccessLibrary.Models
 @using Microsoft.EntityFrameworkCore.Metadata.Internal
 @using WebApplication.Models
-
 @inject IPeopleData _db
 
 <h3>EditPerson</h3>
@@ -23,10 +22,12 @@ else
     public string id { get; set; }
 
     private PersonModel person = new PersonModel();
+    private DisplayPersonModel myPerson = new DisplayPersonModel();
     
-    protected override async Task OnInitializedAsync()
+    // Call the database and get the selected person from it
+    protected override async Task<PersonModel> OnInitializedAsync()
     {
-        person = await _db.GetSinglePerson(Int32.Parse(id));
+        return await _db.GetSinglePerson(Int32.Parse(id));
     }
 }
 

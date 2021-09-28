@@ -48,10 +48,10 @@ namespace DataAccessLibrary
             return _db.UpdatePerson(sql, person);
         }
 
-        public Task<PersonModel> GetSinglePerson(int id)
+        public async Task<PersonModel> GetSinglePerson(int id)
         {
-            string sql = $"SELECT * FROM People WHERE id={id}";
-            return _db.GetSinglePerson(sql);
+            return await _db.GetSinglePerson(id);
+
         }
     }
 }

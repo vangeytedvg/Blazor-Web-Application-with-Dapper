@@ -21,6 +21,6 @@ namespace DataAccessLibrary
         // Own Implementation
         Task DeletePerson(string sql);
         Task UpdatePerson<T>(string sql, T parameters);
-        Task<PersonModel> GetSinglePerson(string sql);
+        Task<PersonModel> GetSinglePerson(int id);
     }
 }
