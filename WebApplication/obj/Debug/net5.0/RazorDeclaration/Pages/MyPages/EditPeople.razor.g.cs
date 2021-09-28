@@ -110,6 +110,27 @@ using WebApplication.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 6 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
+using System.Security.Cryptography;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
+           [Authorize(Roles="Admin")]
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/EditPeople/{id}")]
     public partial class EditPeople : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -119,23 +140,47 @@ using WebApplication.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 20 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
+#line 40 "/home/danny/RiderProjects/WebApplication/WebApplication/Pages/MyPages/EditPeople.razor"
        
+
     [Parameter]
     public string id { get; set; }
 
-    private PersonModel person = new PersonModel();
+    private PersonModel person;
     private DisplayPersonModel myPerson = new DisplayPersonModel();
-    
+
     // Call the database and get the selected person from it
-    protected override async Task<PersonModel> OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        return await _db.GetSinglePerson(Int32.Parse(id));
+        person = await _db.GetSinglePerson(Int32.Parse(id));
+        myPerson = new DisplayPersonModel
+        {
+            Id = person.Id,
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            EmailAddress = person.EmailAddress
+        };
     }
+
+    private async void HandleValidSubmit()
+    {
+        person = new PersonModel
+        {
+            Id = myPerson.Id,
+            FirstName = myPerson.FirstName,
+            LastName = myPerson.LastName,
+            EmailAddress = myPerson.EmailAddress
+        };
+        
+        await _db.UpdatePerson(person);
+        _navigationManager.NavigateTo("data/people");
+    }
+
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPeopleData _db { get; set; }
     }
 }

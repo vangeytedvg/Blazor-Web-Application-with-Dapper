@@ -3,31 +3,73 @@
 @using DataAccessLibrary.Models
 @using Microsoft.EntityFrameworkCore.Metadata.Internal
 @using WebApplication.Models
+@using System.Security.Cryptography
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 @inject IPeopleData _db
+@inject NavigationManager _navigationManager
+
+@attribute [Authorize(Roles="Admin")]
 
 <h3>EditPerson</h3>
 <h1>Editing record @id</h1>
 
-@if (person == null)
+@if (@id == null)
 {
     <p>Loading</p>
 }
 else
 {
-    <h1>@person.FirstName</h1>
+    <h1>EDit</h1>
+    <EditForm Model="@myPerson" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+
+        <label for="firstname">First Name</label>
+        <InputText id="firstname" @bind-Value="myPerson.FirstName"/>
+
+        <label for="lastname">Last Name</label>
+        <InputText id="lastname" @bind-Value="myPerson.LastName"/>
+
+        <label for="email">Email</label>
+        <InputText id="email" @bind-Value="myPerson.EmailAddress"/>
+
+        <button type="submit">Submit</button>
+    </EditForm>
 }
 
 @code {
+
     [Parameter]
     public string id { get; set; }
 
-    private PersonModel person = new PersonModel();
+    private PersonModel person;
     private DisplayPersonModel myPerson = new DisplayPersonModel();
-    
-    // Call the database and get the selected person from it
-    protected override async Task<PersonModel> OnInitializedAsync()
-    {
-        return await _db.GetSinglePerson(Int32.Parse(id));
-    }
-}
 
+    // Call the database and get the selected person from it
+    protected override async Task OnInitializedAsync()
+    {
+        person = await _db.GetSinglePerson(Int32.Parse(id));
+        myPerson = new DisplayPersonModel
+        {
+            Id = person.Id,
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            EmailAddress = person.EmailAddress
+        };
+    }
+
+    private async void HandleValidSubmit()
+    {
+        person = new PersonModel
+        {
+            Id = myPerson.Id,
+            FirstName = myPerson.FirstName,
+            LastName = myPerson.LastName,
+            EmailAddress = myPerson.EmailAddress
+        };
+        
+        await _db.UpdatePerson(person);
+        _navigationManager.NavigateTo("data/people");
+    }
+
+}

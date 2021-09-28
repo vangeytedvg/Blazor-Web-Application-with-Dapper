@@ -23,12 +23,13 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <AuthorizeView>
-            <Authorized>
-                <NavLink class="nav-link" style="color: aquamarine" href="Data/People">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> People
-                </NavLink>
-            </Authorized>
+            @* Added this to exclude non authorized*@
+            <AuthorizeView Roles="Admin, Normal">
+                
+                    <NavLink class="nav-link" style="color: aquamarine" href="Data/People">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> People
+                    </NavLink>
+                
             </AuthorizeView>
         </li>
     </ul>

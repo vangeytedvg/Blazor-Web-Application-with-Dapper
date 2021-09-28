@@ -47,6 +47,7 @@ namespace WebApplication
                 options.UseSqlServer(
                     Configuration.GetConnectionString("sqlserver")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor();

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Dapper;
 using DataAccessLibrary.Models;
 using System.Configuration;
+using System.Linq.Expressions;
 using Microsoft.Extensions.Configuration;
 
 namespace DataAccessLibrary
@@ -55,13 +56,14 @@ namespace DataAccessLibrary
         /**
          * Own Implementation
          */
-        public async Task UpdatePerson<T>(string sql, T parameters)
+        public async Task UpdatePerson(string sql, PersonModel person)
         {
             string connectionString = _config.GetConnectionString(ConnectionStringName);
 
             using (IDbConnection sqlConnection = new SqlConnection(connectionString))
             {
-                await sqlConnection.ExecuteAsync(sql, parameters);
+                //sql = "UPDATE People SET firstname = @FirstName, lastname=@LastName, emailaddress=@EmailAddress WHERE id=@Id";
+                await sqlConnection.ExecuteAsync(sql, person);
             }
         }
 
